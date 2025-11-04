@@ -618,9 +618,9 @@ def get_run_cmd_reference(
             "deepseek-r1")
 
         if env['MLC_MLPERF_BACKEND'] in ["vllm", "sglang"]:
-            base_cmd = f"""torchrun --nproc_per_node={env.get('MLC_MLPERF_INFERENCE_TP_SIZE', env['MLC_CUDA_NUM_DEVICES'])} run_mlperf_mpi.py"""
+	    base_cmd = f"""{x}{env['MLC_PYTHON_BIN_WITH_PATH']}{x} run_mlperf.py"""
         else:
-            base_cmd = f"""{x}{env['MLC_PYTHON_BIN_WITH_PATH']}{x} run_mlperf.py"""
+            base_cmd = f"""torchrun --nproc_per_node={env.get('MLC_MLPERF_INFERENCE_TP_SIZE', env['MLC_CUDA_NUM_DEVICES'])} run_mlperf_>
 
         cmd = f"""{base_cmd} \
             --scenario {env['MLC_MLPERF_LOADGEN_SCENARIO']} \
